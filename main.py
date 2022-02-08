@@ -1,11 +1,14 @@
 import cv2
+import random
 from imutils import contours
 import pytesseract
 #путь до тессеракта
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
+a = random.randint(1, 4)
+print(a)
 
-image = cv2.imread("nom1.jpg")
+image = cv2.imread("images/"+str(a)+".jpg")
 #размеры изображения
 height, width, _ = image.shape
 
@@ -27,7 +30,7 @@ conturs, _ = contours.sort_contours(conturs[0])
 for c in conturs:
     area = cv2.contourArea(c)
     x, y, w, h = cv2.boundingRect(c)
-    if area > 3000:
+    if area > 500:
         img = image[y:y+h, x:x+w]
         result = pytesseract.image_to_string(img, lang="rus+eng")
         if len(result) > 7:
